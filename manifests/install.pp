@@ -22,13 +22,13 @@ class consul::install {
         $do_notify_service = $consul::notify_service
       }
 
-      include '::archive'
+      include '::voxpupuliarchive'
       file { [
         $install_path,
         "${install_path}/consul-${consul::version}"]:
         ensure => directory,
       }->
-      archive { "${install_path}/consul-${consul::version}.${consul::download_extension}":
+      voxpupuliarchive { "${install_path}/consul-${consul::version}.${consul::download_extension}":
         ensure       => present,
         source       => $consul::real_download_url,
         extract      => true,
@@ -60,7 +60,7 @@ class consul::install {
         file { "${install_path}/consul-${consul::version}_web_ui":
           ensure => directory,
         }->
-        archive { "${install_path}/consul_web_ui-${consul::version}.zip":
+        voxpupuliarchive { "${install_path}/consul_web_ui-${consul::version}.zip":
           ensure       => present,
           source       => $consul::real_ui_download_url,
           extract      => true,
